@@ -9,19 +9,8 @@ import {
   Link,
   Button,
 } from "@heroui/react";
-
-export const AcmeLogo = () => {
-  return (
-    <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
-      <path
-        clipRule="evenodd"
-        d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-        fill="currentColor"
-        fillRule="evenodd"
-      />
-    </svg>
-  );
-};
+import Image from "next/image";
+import logo from "../../assets/Logo 1.png";
 
 export default function App() {
   const menuItems = [
@@ -39,81 +28,78 @@ export default function App() {
 
   return (
     <Navbar disableAnimation isBordered>
-      <NavbarContent className="sm:hidden" justify="start">
-        <NavbarMenuToggle />
-      </NavbarContent>
-
-      <NavbarContent className="sm:hidden pr-3" justify="center">
-        <NavbarBrand>
-          <AcmeLogo />
-          <Link href="/">
-            {" "}
-            <p className="font-bold text-inherit">ACME</p>
-          </Link>
-        </NavbarBrand>
-      </NavbarContent>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarBrand>
-          <AcmeLogo />
-          <Link href="/">
-            {" "}
-            <p className="font-bold text-inherit">ACME</p>
-          </Link>
-        </NavbarBrand>
-        <NavbarItem>
-          <Link color="foreground" href="/">
-            Home
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link aria-current="page" color="warning" href="meeting">
-            Meeting Room
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="about">
-            About Us
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="contact">
-            Contact Us
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="/login">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="warning" href="/register" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full"
-              color={
-                index === 2
-                  ? "warning"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href="#"
-              size="lg"
-            >
-              {item}
+      <div className="container mx-auto flex justify-between items-center">
+        {/* Logo on the left */}
+        <NavbarContent justify="start">
+          <NavbarBrand>
+            <Link href="/">
+              <Image src={logo} width={100} height={100} alt="logo" />
             </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
+          </NavbarBrand>
+        </NavbarContent>
+
+        {/* Menu items aligned to the right */}
+        <NavbarContent className="hidden sm:flex gap-4" justify="end">
+          <NavbarItem>
+            <Link className="text-[#4E7776]" href="/">
+              Home
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-[#4E7776]" href="/meeting">
+              Meeting Room
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-[#4E7776]" href="/about">
+              About Us
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-[#4E7776]" href="/contact">
+              Contact Us
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Button
+              className="bg-[#4E7776] text-white font-semibold"
+              variant="bordered"
+              radius="none"
+            >
+              <Link className="text-white" href="/login">
+                Login
+              </Link>
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+
+        {/* Mobile menu toggle */}
+        <NavbarContent className="sm:hidden" justify="end">
+          <NavbarMenuToggle />
+        </NavbarContent>
+
+        {/* Mobile menu dropdown */}
+        <NavbarMenu>
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={`${item}-${index}`}>
+              <Link
+                className="w-full"
+                color={
+                  index === 2
+                    ? "warning"
+                    : index === menuItems.length - 1
+                    ? "danger"
+                    : "foreground"
+                }
+                href="#"
+                size="lg"
+              >
+                {item}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
+      </div>
     </Navbar>
   );
 }

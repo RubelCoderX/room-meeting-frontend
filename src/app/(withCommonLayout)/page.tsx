@@ -1,11 +1,18 @@
 import HeroSection from "@/components/HeroSection/HeroSection";
-import Containter from "@/components/UI/containter";
+import HowItWorks from "@/components/HowItWorks/HowItsWork";
+import Service from "@/components/Service/Service";
+// import Container from "@/components/UI/Container";
+import WhyChooseUs from "@/components/whyChoosse/whyChoose";
 
 const Page = () => {
   return (
-    <Containter>
+    <div className="bg-[#FFF2F1]">
       <HeroSection />
-    </Containter>
+      <Service />
+      <WhyChooseUs />
+      <HowItWorks />
+      <hr />
+    </div>
   );
 };
 
