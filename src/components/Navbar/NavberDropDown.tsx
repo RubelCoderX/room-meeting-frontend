@@ -1,5 +1,7 @@
 "use client";
 
+import { useGetMeQuery } from "@/redux/feature/auth/authApi";
+import { logout } from "@/redux/feature/auth/authSlice";
 import {
   Avatar,
   Dropdown,
@@ -7,40 +9,49 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
-// import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 
 const NavberDropDown = () => {
   const router = useRouter();
-  // const { user, isSetLoading: UserLoading } = useUser();
+  const dispatch = useDispatch();
+  const { data, isLoading } = useGetMeQuery(undefined);
+  const user = data?.data;
+  console.log(user);
 
-  // const pathname = usePathname();
-
-  const handleNavigation = (pathname: string) => {
-    router.push(pathname);
+  const handleNavigation = (path: string) => {
+    router.push(path);
   };
 
-  // const handleLogOut = () => {
-  //   logOut();
-  //   UserLoading(true);
-  //   if (protectedRoutes.some((route) => pathname.match(route))) {
-  //     router.push("/");
-  //   }
-  // };
+  const handleLogOut = () => {
+    dispatch(logout());
+    router.push("/login");
+  };
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar className="cursor-pointer" src={user?.profileImage} />
+        <Avatar className="cursor-pointer" src={user?.profileImg} />
       </DropdownTrigger>
-      <DropdownMenu aria-label="Example with disabled actions">
-        <DropdownItem
-          key="dashboard"
-          onClick={() => handleNavigation(`/${user?.role}Dashboard`)}
-        >
-          Dashboard
-        </DropdownItem>
-
-        <DropdownItem key="logout" onClick={() => handleLogOut()}>
+      <DropdownMenu aria-label="User Menu">
+        {user?.role === "admin" ? (
+          <DropdownItem
+            key="dashboard"
+            onClick={() => handleNavigation("/adminDashboard")}
+          >
+            Dashboard
+          </DropdownItem>
+        ) : (
+          <DropdownItem
+            key="mybookings"
+            onClick={() => handleNavigation("/my-booking")}
+          >
+            My Bookings
+          </DropdownItem>
+        )}
+        <DropdownItem key="logout" onClick={handleLogOut}>
           Log Out
         </DropdownItem>
       </DropdownMenu>

@@ -59,7 +59,7 @@ interface IProps extends IInput {
   radius: "none" | "sm" | "md" | "lg" | "full";
   label: ReactNode;
   options: { key: string; label: ReactNode; value: string }[];
-  isMulti?: boolean; // 🔥 Add support for multi-select
+  isMulti?: boolean;
 }
 
 const TechSelect = ({

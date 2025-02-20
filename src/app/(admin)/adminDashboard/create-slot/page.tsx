@@ -8,11 +8,12 @@ import { toast } from "sonner";
 
 import TechForm from "@/components/form/TechForm/TechForm";
 import { useCreateSlotMutation } from "@/redux/feature/slot/slotApi";
-import { useGetAllRoomQuery } from "@/redux/feature/meeting/meetingApi";
+
 import TechSelect from "@/components/form/TechSelect/TechSelect";
 import TechDatePicker from "@/components/form/TechDatePicker/TechDatePicker";
 import TechTimePicker from "@/components/form/TechTImePicker/TechTimePicker";
 import { Button } from "@heroui/button";
+import { useGetAllRoomQuery } from "@/redux/feature/room/roomApi";
 
 interface Room {
   id: string;
@@ -67,7 +68,7 @@ const CreateSlot = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-40">
+    <div className="flex items-center justify-center p-28">
       <div className=" max-w-[1031px] w-full mx-auto border p-10  rounded-lg">
         <h2 className="text-xl font-semibold mb-5 text-center">Create Slot</h2>
         {isFetching ? (

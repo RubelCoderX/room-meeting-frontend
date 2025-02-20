@@ -1,13 +1,14 @@
 "use client";
-import React, { ChangeEvent, use, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "@heroui/button";
 import TechForm from "@/components/form/TechForm/TechForm";
 import TechSelect from "@/components/form/TechSelect/TechSelect";
 import { TechInput } from "@/components/form/TechInput/TechInput";
-import { useCreateRoomMutation } from "@/redux/feature/meeting/meetingApi";
+
 import uploadImageToCloudinary from "@/utils/uploadImage";
+import { useCreateRoomMutation } from "@/redux/feature/room/roomApi";
 
 const roomFacilitiesOption = [
   { key: "wifi", value: "WiFi", label: "WiFi" },
@@ -82,52 +83,62 @@ const CreateRoom: React.FC = () => {
   };
 
   return (
-    <div className="lg:w-[500px] md:w-[500px] w-full text-center lg:mx-auto md:mx-auto">
-      <h2 className="text-xl font-semibold mb-4">Create Room</h2>
-      <TechForm onSubmit={handleCreateRoom}>
-        <div className="flex flex-col gap-4">
-          <TechInput type="text" name="name" label="Room Name" radius="none" />
-          <TechInput
-            type="number"
-            name="capacity"
-            label="Capacity"
-            radius="none"
-          />
-          <TechSelect
-            options={roomFacilitiesOption}
-            name="amenities"
-            label="Amenities"
-            isMulti
-            radius="lg"
-          />
-
-          {/* ✅ Image Upload Section */}
-          <div className="mb-4 w-full">
-            <label
-              className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-gray-300 text-gray-500 shadow-sm transition-all duration-100 hover:border-gray-500"
-              htmlFor="image"
-            >
-              Upload Image
-            </label>
-            <input
-              className="hidden"
-              id="image"
-              name="image"
-              type="file"
-              onChange={handleImageChange}
-              accept="image/*"
+    <div className="flex items-center justify-center p-28">
+      <div className=" max-w-[1031px] w-full mx-auto border p-10  rounded-lg">
+        <h2 className="text-xl font-semibold mb-4">Create Room</h2>
+        <TechForm onSubmit={handleCreateRoom}>
+          <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <TechInput
+                type="number"
+                name="capacity"
+                label="Capacity"
+                radius="none"
+              />
+              <TechInput
+                type="text"
+                name="name"
+                label="Room Name"
+                radius="none"
+              />
+            </div>
+            <TechSelect
+              options={roomFacilitiesOption}
+              name="amenities"
+              label="Amenities"
+              isMulti
+              radius="none"
+              variant="bordered"
             />
-          </div>
-        </div>
 
-        <Button
-          className="w-56 mx-auto h-9 mt-4"
-          type="submit"
-          disabled={imageUploadLoading}
-        >
-          Create Room
-        </Button>
-      </TechForm>
+            {/* ✅ Image Upload Section */}
+            <div className="mb-4 w-full">
+              <label
+                className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-gray-300 text-gray-500 shadow-sm transition-all duration-100 hover:border-gray-500"
+                htmlFor="image"
+              >
+                Upload Image
+              </label>
+              <input
+                className="hidden"
+                id="image"
+                name="image"
+                type="file"
+                onChange={handleImageChange}
+                accept="image/*"
+              />
+            </div>
+          </div>
+
+          <Button
+            className="w-full py-2 text-white mt-4 bg-[#4E7776] font-semibold"
+            type="submit"
+            disabled={imageUploadLoading}
+          >
+            Create Room
+          </Button>
+        </TechForm>
+      </div>
     </div>
   );
 };

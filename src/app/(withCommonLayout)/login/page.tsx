@@ -4,7 +4,6 @@ import React from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
-
 import TechForm from "@/components/form/TechForm/TechForm";
 import { TechInput } from "@/components/form/TechInput/TechInput";
 import Loading from "@/utils/loading";
@@ -28,7 +27,7 @@ const Login = () => {
     const res = await loginUser(data).unwrap();
     console.log(res);
     if (res.error) {
-      toast.error(res.error?.message, { duration: 2000 });
+      toast.error(res?.message, { duration: 2000 });
     } else {
       toast.success(res?.message, { duration: 2000 });
       router.push("/");
@@ -106,7 +105,7 @@ const Login = () => {
                 />
               </div>
               <button
-                className="w-full py-2 text-white mt-4 bg-red-500 font-semibold rounded-lg hover:bg-red-600 transition-colors"
+                className="w-full py-2 text-white mt-4  bg-[#4E7776] font-semibold rounded-lg  transition-colors"
                 type="submit"
               >
                 Login

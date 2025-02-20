@@ -1,18 +1,15 @@
+"use client";
 import { useState, useRef, useEffect } from "react";
 import { FaAngleUp, FaAngleDown, FaBars, FaTimes } from "react-icons/fa";
-
-import { useAppSelector } from "../../redux/hook";
 import Link from "next/link";
 
-const Sidebar = () => {
+const AdminSideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const roomManagementRef = useRef<HTMLDivElement>(null);
   const slotManagementRef = useRef<HTMLDivElement>(null);
   const bookManagementRef = useRef<HTMLDivElement>(null);
-  const { user } = useAppSelector((state) => state.auth);
-  //   const location = useLocation();
 
   const toggleDropdown = (name: string) => {
     setOpenDropdown(openDropdown === name ? null : name);
@@ -32,17 +29,9 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    if (isSidebarOpen) {
-      setIsSidebarOpen(false);
-    }
-  }, [location]);
-
-  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const isActiveRoute = (path: string) => location.pathname === path;
 
   return (
     <div>
@@ -62,6 +51,14 @@ const Sidebar = () => {
         }`}
       >
         <div className="space-y-3">
+          {/* Home Link */}
+          <Link
+            href="/"
+            className="block text-blue-600 px-3 py-2 rounded-md text-base font-medium hover:bg-blue-100 transition"
+          >
+            Home
+          </Link>
+
           {/* Room Management */}
           <div>
             <button
@@ -87,22 +84,14 @@ const Sidebar = () => {
             >
               <div className="pl-4 space-y-2">
                 <Link
-                  href={`/${user?.role}/dashboard/create-room`}
-                  className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/create-room`)
-                      ? "bg-blue-100"
-                      : ""
-                  }`}
+                  href="/adminDashboard/create-room"
+                  className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-100 transition"
                 >
                   Create Room
                 </Link>
                 <Link
-                  href={`/${user?.role}/dashboard/get-room`}
-                  className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/get-room`)
-                      ? "bg-blue-100"
-                      : ""
-                  }`}
+                  href="/adminDashboard/get-all-room"
+                  className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-100 transition"
                 >
                   Get All Rooms
                 </Link>
@@ -135,22 +124,14 @@ const Sidebar = () => {
             >
               <div className="pl-4 space-y-2">
                 <Link
-                  href={`/${user?.role}/dashboard/create-slot`}
-                  className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/create-slot`)
-                      ? "bg-blue-100"
-                      : ""
-                  }`}
+                  href="/adminDashboard/create-slot"
+                  className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-100 transition"
                 >
                   Create Slot
                 </Link>
                 <Link
-                  href={`/${user?.role}/dashboard/get-slot`}
-                  className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/get-slot`)
-                      ? "bg-blue-100"
-                      : ""
-                  }`}
+                  href="/adminDashboard/get-all-slot"
+                  className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-100 transition"
                 >
                   Get All Slots
                 </Link>
@@ -183,12 +164,8 @@ const Sidebar = () => {
             >
               <div className="pl-4 space-y-2">
                 <Link
-                  href={`/${user?.role}/dashboard/bookings`}
-                  className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/bookings`)
-                      ? "bg-blue-100"
-                      : ""
-                  }`}
+                  href="/adminDashboard/bookings"
+                  className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-100 transition"
                 >
                   All Bookings
                 </Link>
@@ -221,12 +198,8 @@ const Sidebar = () => {
             >
               <div className="pl-4 space-y-2">
                 <Link
-                  href={`/${user?.role}/dashboard/allUser`}
-                  className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/allUser`)
-                      ? "bg-blue-100"
-                      : ""
-                  }`}
+                  href="/adminDashboard/allUser"
+                  className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-100 transition"
                 >
                   All Users
                 </Link>
@@ -239,4 +212,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSideBar;

@@ -27,11 +27,39 @@ const roomApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getAllRoom: builder.query({
+      query: () => {
+        return {
+          url: "/room",
+          method: "GET",
+        };
+      },
+      providesTags: ["room"],
+    }),
+    getRoomById: builder.query({
+      query: (roomId) => {
+        return {
+          url: `/room/get-room/${roomId}`,
+          method: "GET",
+        };
+      },
+    }),
+    deleteRoom: builder.mutation({
+      query: (roomId) => {
+        return {
+          url: `/room/delete-room/${roomId}`,
+          method: "DELETE",
+        };
+      },
+    }),
   }),
 });
 
 export const {
   useCreateRoomMutation,
+  useGetAllRoomQuery,
+  useGetRoomByIdQuery,
   useGetAllSlotQuery,
   useGetSlotByIdQuery,
+  useDeleteRoomMutation,
 } = roomApi;

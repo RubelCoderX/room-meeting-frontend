@@ -26,9 +26,9 @@ const authApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["post", "user"],
+      providesTags: ["user"],
     }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useGetMeQuery } = authApi;

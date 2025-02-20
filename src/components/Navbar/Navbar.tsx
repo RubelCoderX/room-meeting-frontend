@@ -1,147 +1,110 @@
 "use client";
+
+import { useState } from "react";
 import {
   Navbar,
   NavbarBrand,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
   NavbarContent,
   NavbarItem,
-  Link,
-  Button,
-} from "@heroui/react";
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from "@heroui/navbar";
+import Link from "next/link";
+import NavberDropDown from "./NavberDropDown";
 import Image from "next/image";
 import logo from "../../assets/Logo 1.png";
-import { useAppSelector, useAppDispatch } from "@/redux/hook";
+import { siteConfig } from "@/utils/siteConfig";
+import { useGetMeQuery } from "@/redux/feature/auth/authApi";
 
-import { useEffect, useState } from "react";
-import Loading from "@/utils/loading";
-import { logout } from "@/redux/feature/auth/authSlice";
-
-const NavigationBar = () => {
-  const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
-  const userMenuItems = [
-    { name: "Meeting", path: "/meeting" },
-    { name: "My Booking", path: "/my-booking" },
-  ];
-
-  const adminMenuItems = [
-    { name: "Create Room", path: "/create-room" },
-    { name: "Total Room", path: "/get-all-room" },
-    { name: "Create Slot", path: "/create-slot" },
-    { name: "Total Slot", path: "/get-slot" },
-  ];
+export const Navber = () => {
+  const { data } = useGetMeQuery(undefined);
+  const user = data?.data;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <Navbar disableAnimation isBordered>
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Logo on the left */}
-        <NavbarContent justify="start">
-          <NavbarBrand>
-            <Link href="/">
-              <Image src={logo} width={100} height={100} alt="logo" />
-            </Link>
-          </NavbarBrand>
-        </NavbarContent>
+    <Navbar className="border-b-1" maxWidth="2xl" position="sticky">
+      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+        <NavbarBrand as="li" className="gap-3 max-w-fit">
+          <Link
+            className="flex items-center gap-1 light:text-[#F9F9F9]"
+            href="/"
+          >
+            <Image src={logo} alt="Gadget Guru Hub" width={100} height={100} />
+          </Link>
+        </NavbarBrand>
 
-        {/* Menu items (Always visible) */}
-        <NavbarContent className="hidden sm:flex gap-4" justify="end">
-          {/* <NavbarItem>
-            <Link className="text-[#4E7776]" href="/">
-              Home
-            </Link>
-          </NavbarItem> */}
-
-          {/* Conditionally render user-related links only after hydration */}
-          {isClient ? (
-            user ? (
-              <>
-                {(user.role === "ADMIN" ? adminMenuItems : userMenuItems).map(
-                  (item, index) => (
-                    <NavbarItem key={index}>
-                      <Link className="text-[#4E7776]" href={item.path}>
-                        {item.name}
-                      </Link>
-                    </NavbarItem>
-                  )
-                )}
-                {/* Logout Button */}
-                <NavbarItem>
-                  <Button
-                    className="bg-red-600 text-white font-semibold"
-                    variant="bordered"
-                    radius="none"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </Button>
-                </NavbarItem>
-              </>
-            ) : (
-              <NavbarItem>
-                <Button
-                  className="bg-[#4E7776] text-white font-semibold"
-                  variant="bordered"
-                  radius="none"
-                >
-                  <Link className="text-white" href="/login">
-                    Login
-                  </Link>
-                </Button>
-              </NavbarItem>
-            )
-          ) : (
-            <NavbarItem>
-              <Loading />
+        {/* Desktop Navigation */}
+        <ul className="hidden lg:flex gap-4 ml-2  font-bold">
+          {siteConfig.navItems.map((item) => (
+            <NavbarItem key={item.href}>
+              <Link
+                className="hover:text-[#4E7776] transition-colors"
+                href={item.href}
+              >
+                {item.label}
+              </Link>
             </NavbarItem>
-          )}
-        </NavbarContent>
+          ))}
+        </ul>
+      </NavbarContent>
 
-        {/* Mobile menu toggle */}
-        <NavbarContent className="sm:hidden" justify="end">
-          <NavbarMenuToggle />
-        </NavbarContent>
+      {/* Desktop User Options */}
+      <NavbarContent
+        className="hidden sm:flex basis-1/5 sm:basis-full"
+        justify="end"
+      >
+        {user?.email ? (
+          <NavbarItem className="hidden md:flex">
+            <NavberDropDown />
+          </NavbarItem>
+        ) : (
+          <NavbarItem className="hidden md:flex">
+            <Link
+              className="border px-6 rounded py-2 text-white bg-[#4E7776]"
+              href="/login"
+            >
+              Log In
+            </Link>
+          </NavbarItem>
+        )}
+      </NavbarContent>
 
-        {/* Mobile menu dropdown */}
-        <NavbarMenu>
-          {isClient ? (
-            user ? (
-              (user.role === "ADMIN" ? adminMenuItems : userMenuItems).map(
-                (item, index) => (
-                  <NavbarMenuItem key={index}>
-                    <Link href={item.path} className="w-full text-[#4E7776]">
-                      {item.name}
-                    </Link>
-                  </NavbarMenuItem>
-                )
-              )
-            ) : (
-              <NavbarMenuItem>
-                <Link href="/login" className="w-full text-[#4E7776]">
-                  Login
-                </Link>
-              </NavbarMenuItem>
-            )
-          ) : (
-            <NavbarMenuItem>
-              <Loading />
+      {/* Mobile Menu Toggle */}
+      <NavbarMenuToggle
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className="lg:hidden"
+      />
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <NavbarMenu className="absolute top-16 left-0 w-full bg-white shadow-md">
+          {siteConfig.navItems.map((item) => (
+            <NavbarMenuItem key={item.href}>
+              <Link
+                className="block px-4 py-2 text-gray-700 hover:bg-gray-200"
+                href={item.href}
+              >
+                {item.label}
+              </Link>
             </NavbarMenuItem>
-          )}
+          ))}
+
+          {/* Mobile User Options */}
+          <NavbarMenuItem>
+            {user?.email ? (
+              <NavberDropDown />
+            ) : (
+              <Link
+                className="block px-4 py-2 text-white bg-[#4E7776] border-t"
+                href="/login"
+              >
+                Log In
+              </Link>
+            )}
+          </NavbarMenuItem>
         </NavbarMenu>
-      </div>
+      )}
     </Navbar>
   );
 };
-
-export default NavigationBar;
