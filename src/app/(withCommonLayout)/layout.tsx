@@ -7,6 +7,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <div className="relative flex flex-col  min-h-screen bg-[#FFF2F1]">
       <Navbar />
       {children}
+      <hr />
       <Footer />
     </div>
   );

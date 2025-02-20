@@ -1,15 +1,22 @@
 "use client";
 
-import { Button, Input, Select, SelectItem } from "@heroui/react";
-import { Card, CardBody } from "@heroui/card";
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { Input, Select, SelectItem } from "@heroui/react";
 
-export default function RoomFilter() {
+import { useState } from "react";
+
+import { useGetAllRoomQuery } from "@/redux/feature/meeting/meetingApi";
+import RoomCard from "@/components/RoomCard/RoomCard";
+import Loading from "@/utils/loading";
+
+const Room = () => {
+  const { data, isFetching } = useGetAllRoomQuery(undefined);
+  console.log(data?.data);
   const [capacity, setCapacity] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
+  if (isFetching) {
+    return <Loading />;
+  }
   const capacityOptions = Array.from({ length: 50 }, (_, i) => ({
     key: (i + 1).toString(),
     label: `${i + 1} People`,
@@ -51,38 +58,11 @@ export default function RoomFilter() {
 
       {/* Right Side (Rooms) */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[1, 2, 3, 4, 5, 6].map((room, index) => (
-          <Card key={index} className="shadow-lg bg-[#D9D9D9]">
-            <div className="p-4">
-              <Image
-                width={260}
-                height={150}
-                alt="Meeting Room"
-                src="/room-image.jpg"
-                className="w-full h-[159px] object-cover border p-4"
-              />
-            </div>
-            <CardBody className="p-4 flex flex-col justify-between">
-              <div>
-                <h3 className="text-xl font-semibold">Austin</h3>
-                <p className="text-gray-600 flex items-center gap-1">
-                  📍 Dev Bay, Chennai
-                </p>
-                <p className="font-bold text-gray-700">Max Limit: 20-24</p>
-              </div>
-              <Link href={`/${room}`}>
-                <Button
-                  variant="bordered"
-                  radius="none"
-                  className="w-full bg-[#4E7776] mt-4 text-white hover:bg-[#3a5d5d] transition"
-                >
-                  Booking
-                </Button>
-              </Link>
-            </CardBody>
-          </Card>
+        {data?.data?.map((room) => (
+          <RoomCard key={room.id} room={room} />
         ))}
       </div>
     </div>
   );
-}
+};
+export default Room;

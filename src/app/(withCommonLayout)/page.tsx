@@ -11,7 +11,6 @@ const Page = () => {
       <Service />
       <WhyChooseUs />
       <HowItWorks />
-      <hr />
     </div>
   );
 };

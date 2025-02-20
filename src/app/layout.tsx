@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 import { HeroUIProvider } from "@heroui/react";
+import ReduxProviders from "@/lib/reduxProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,12 +28,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <HeroUIProvider>{children}</HeroUIProvider>
-      </body>
-    </html>
+    <ReduxProviders>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <HeroUIProvider>
+            {children}
+            <Toaster richColors expand={false} position="top-center" />
+          </HeroUIProvider>
+        </body>
+      </html>
+    </ReduxProviders>
   );
 }
