@@ -23,7 +23,7 @@ const Room = () => {
   }));
 
   return (
-    <div className="flex flex-col md:flex-row max-w-5xl mx-auto p-4 md:p-6 gap-6">
+    <div className="flex flex-col md:flex-row max-w-5xl mx-auto p-4 md:p-6 my-10 gap-6">
       {/* Left Sidebar (Filters) */}
       <div className="w-full md:w-[296px] bg-[#DFD3D1] p-4 rounded-lg">
         <h2 className="text-lg font-semibold mb-4">Filter by Location:</h2>

@@ -68,7 +68,7 @@ const CreateSlot = () => {
 
   return (
     <div className="flex items-center justify-center p-28">
-      <div className=" max-w-[1031px] w-full mx-auto border p-10  rounded-lg">
+      <div className=" max-w-7xl w-full mx-auto border p-10  rounded-lg">
         <h2 className="text-xl font-semibold mb-5 text-center">Create Slot</h2>
         {isFetching ? (
           <div className="flex items-center justify-center h-[80vh]">

@@ -29,7 +29,7 @@ const Service = () => {
       <h1 className="text-4xl text-center font-semibold text-[#4E7776]">
         Our Premium Services
       </h1>
-      <div className="max-w-[1031px] mx-auto lg:bg-[#4E7776] lg:border md:border md:bg-[#4E7776] mt-10 py-[30px] rounded-md">
+      <div className="max-w-7xl mx-auto lg:bg-[#4E7776] lg:border md:border md:bg-[#4E7776] mt-10 py-[30px] rounded-md">
         <div className="flex lg:flex-row md:flex-row flex-col items-center justify-center gap-10">
           {serviceData?.map((item, idx) => (
             <div

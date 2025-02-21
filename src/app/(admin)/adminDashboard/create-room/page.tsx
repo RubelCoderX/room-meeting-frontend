@@ -84,7 +84,7 @@ const CreateRoom: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center p-28">
-      <div className=" max-w-[1031px] w-full mx-auto border p-10  rounded-lg">
+      <div className=" max-w-7xl w-full mx-auto border p-10  rounded-lg">
         <h2 className="text-xl font-semibold mb-4">Create Room</h2>
         <TechForm onSubmit={handleCreateRoom}>
           <div className="flex flex-col gap-4">

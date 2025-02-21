@@ -1,6 +1,6 @@
 const WhyChooseUs = () => {
   return (
-    <div className="lg:pt-20 md:pt-10 pb-20 max-w-[1031px] lg:mx-auto md:mx-auto mx-5 space-y-16">
+    <div className="lg:pt-20 md:pt-10 pb-20 max-w-7xl lg:mx-auto md:mx-auto mx-5 space-y-16">
       <h1 className="text-4xl text-center font-semibold text-[#4E7776] ">
         Why Choose Us
       </h1>

@@ -1,9 +1,10 @@
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 import { verifyToken } from "./verifyToken";
 
 export const getCurrentUser = async () => {
   try {
-    const refreshToken = cookies().get("refreshToken")?.value;
+    // const refreshToken = cookies().get("refreshToken")?.value;
+    const refreshToken = localStorage.getItem("accessToken");
 
     if (!refreshToken) return null;
 

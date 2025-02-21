@@ -36,7 +36,7 @@ const HowItWorks = () => {
   };
 
   return (
-    <div className="lg:pt-1 max-w-[1031px] mx-auto py-16 px-4">
+    <div className="lg:pt-1 max-w-7xl mx-auto py-16 px-4">
       <h2 className="text-center text-4xl font-bold text-[#4E7776] mb-10">
         How It Works
       </h2>
