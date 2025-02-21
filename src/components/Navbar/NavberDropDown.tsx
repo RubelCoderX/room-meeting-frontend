@@ -9,6 +9,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
@@ -17,7 +18,7 @@ const NavberDropDown = () => {
   const dispatch = useDispatch();
   const { data, isLoading } = useGetMeQuery(undefined);
   const user = data?.data;
-  console.log(user);
+  console.log("user", user.profileImg);
 
   const handleNavigation = (path: string) => {
     router.push(path);
@@ -33,7 +34,13 @@ const NavberDropDown = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar className="cursor-pointer" src={user?.profileImg} />
+        <Image
+          src={user?.profileImg}
+          alt="profile"
+          width={50}
+          height={50}
+          className="rounded-full border-2 cursor-pointer"
+        />
       </DropdownTrigger>
       <DropdownMenu aria-label="User Menu">
         {user?.role === "admin" ? (

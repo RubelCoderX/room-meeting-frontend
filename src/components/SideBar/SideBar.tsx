@@ -198,7 +198,7 @@ const AdminSideBar = () => {
             >
               <div className="pl-4 space-y-2">
                 <Link
-                  href="/adminDashboard/allUser"
+                  href="/adminDashboard/get-all-users"
                   className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-100 transition"
                 >
                   All Users

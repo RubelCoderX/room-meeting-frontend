@@ -4,13 +4,13 @@ import { Input, Select, SelectItem } from "@heroui/react";
 
 import { useState } from "react";
 
-import { useGetAllRoomQuery } from "@/redux/feature/meeting/meetingApi";
 import RoomCard from "@/components/RoomCard/RoomCard";
 import Loading from "@/utils/loading";
+import { useGetAllRoomQuery } from "@/redux/feature/room/roomApi";
 
 const Room = () => {
   const { data, isFetching } = useGetAllRoomQuery(undefined);
-  console.log(data?.data);
+
   const [capacity, setCapacity] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 

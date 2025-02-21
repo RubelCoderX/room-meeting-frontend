@@ -1,21 +1,38 @@
 "use client";
-import { useGetRoomByIdQuery } from "@/redux/feature/meeting/meetingApi";
+
+import { useGetMeQuery } from "@/redux/feature/auth/authApi";
+import { useGetRoomByIdQuery } from "@/redux/feature/room/roomApi";
 import Loading from "@/utils/loading";
 import { Armchair, Computer, Tv, Wifi } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 const facilityIcons: Record<string, JSX.Element> = {
   WiFi: <Wifi />,
   Projector: <Tv />,
   Whiteboard: <Computer />,
 };
+
 const RoomDetailsPage = ({ params: { roomId } }) => {
   const { data, isFetching } = useGetRoomByIdQuery(roomId);
+  const { data: user } = useGetMeQuery(undefined);
+  const userProfile = user?.data;
+  const router = useRouter();
+
   if (isFetching) {
     return <Loading />;
   }
 
+  const handleBookingClick = () => {
+    if (userProfile) {
+      router.push(`/${roomId}/booking`);
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
-    <div className="flex justify-center items-center p-20">
+    <div className="flex justify-center items-center py-40 ">
       <div className="p-6 rounded-lg flex flex-wrap md:flex-nowrap max-w-4xl w-full gap-6">
         {/* Left Side - Image */}
         <div className="w-full md:w-[50%] border h-72 md:h-[300px]">
@@ -48,7 +65,10 @@ const RoomDetailsPage = ({ params: { roomId } }) => {
             ))}
           </div>
 
-          <button className="mt-6 bg-[#4E7776] text-white py-2 px-4 rounded-md w-full hover:bg-gray-800 transition">
+          <button
+            onClick={handleBookingClick}
+            className="mt-6 bg-[#4E7776] text-white py-2 px-4 rounded-md w-full hover:bg-gray-800 transition"
+          >
             Book Now
           </button>
         </div>

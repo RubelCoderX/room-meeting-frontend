@@ -23,7 +23,6 @@ interface Room {
 const CreateSlot = () => {
   const [creatSlot] = useCreateSlotMutation();
   const { data: rooms, isFetching } = useGetAllRoomQuery({});
-  console.log(rooms?.data);
 
   // const navigation = useNavigate();
 

@@ -28,7 +28,30 @@ const authApi = baseApi.injectEndpoints({
       },
       providesTags: ["user"],
     }),
+    getAllUsers: builder.query({
+      query: () => {
+        return {
+          url: "/user",
+          method: "GET",
+        };
+      },
+      providesTags: ["user"],
+    }),
+
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `/user/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useGetMeQuery } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGetMeQuery,
+  useGetAllUsersQuery,
+  useDeleteUserMutation,
+} = authApi;
