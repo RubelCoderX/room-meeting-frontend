@@ -16,7 +16,7 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     const state = getState() as RootState;
     const token = state.auth.token;
-    console.log("token", token);
+    // console.log("token", token);
 
     if (token) {
       headers.set("authorization", `${token}`);
@@ -34,7 +34,7 @@ const BaseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status === 401) {
+  if (result?.error?.status === 500) {
     const res = await fetch(
       " http://localhost:8000/api/v1/user/refresh-token",
       {
@@ -43,7 +43,6 @@ const BaseQueryWithRefreshToken: BaseQueryFn<
       }
     );
     const data = await res.json();
-    console.log(data);
 
     if (data?.data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;

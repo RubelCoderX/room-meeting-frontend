@@ -1,18 +1,22 @@
-// import { cookies } from "next/headers";
+import { cookies } from "next/headers";
 import { verifyToken } from "./verifyToken";
+import { JwtPayload } from "jsonwebtoken";
+interface UserPayload extends JwtPayload {
+  id: string;
+  name: string;
+  role: "user" | "admin";
+}
+export async function getCurrentUser() {
+  const token = cookies().get("token")?.value;
+  console.log("token", token);
 
-export const getCurrentUser = async () => {
+  if (!token) return null;
+
   try {
-    // const refreshToken = cookies().get("refreshToken")?.value;
-    const refreshToken = localStorage.getItem("accessToken");
-
-    if (!refreshToken) return null;
-
-    const user = await verifyToken(refreshToken);
-
+    const user = verifyToken(token) as UserPayload;
     return user;
   } catch (error) {
     console.error("Error verifying token:", error);
     return null;
   }
-};
+}

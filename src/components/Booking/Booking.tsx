@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import "react-datepicker/dist/react-datepicker.css";
@@ -79,11 +80,11 @@ const Booking = ({ id }: BookingProps) => {
   };
 
   return isFetching || slotFetch ? (
-    <div className="flex items-center justify-center h-[80vh]">
+    <div className="flex items-center justify-center h-[60vh]">
       <FaSpinner fontSize={"3rem"} className="animate-spin" />
     </div>
   ) : (
-    <div className="max-w-7xl mx-auto mb-10">
+    <div className="max-w-7xl mx-auto mb-10 h-[60vh]">
       <div className="lg:w-[900px] mx-auto mt-5 rounded-md">
         <Image
           width={400}
@@ -157,7 +158,10 @@ const Booking = ({ id }: BookingProps) => {
                 placeholder="Enter description"
               ></textarea>
 
-              <Button type="submit" className="w-full h-[45px] mt-3">
+              <Button
+                type="submit"
+                className="w-full bg-[#4E7776] text-white h-[45px] mt-3"
+              >
                 Booking
               </Button>
             </form>

@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { useAppDispatch } from "@/redux/hook";
 import { verifyToken } from "@/utils/verifyToken";
 import { setUser } from "@/redux/feature/auth/authSlice";
+import { getToken } from "@/utils/seetCookie";
 
 const Login = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const res = await loginUser(data).unwrap();
-    console.log(res);
+
     if (res.error) {
       toast.error(res?.message, { duration: 2000 });
     } else {
@@ -33,9 +34,9 @@ const Login = () => {
       router.push("/");
     }
     const token = res.data?.accessToken;
-    const decoded = await verifyToken(token);
+    const decoded = verifyToken(token);
 
-    // await getToken(token);
+    await getToken(token);
 
     dispatch(
       setUser({

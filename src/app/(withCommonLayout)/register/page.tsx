@@ -1,23 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Link from "next/link";
 import React, { ChangeEvent, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
-
 import TechForm from "@/components/form/TechForm/TechForm";
 import { TechInput } from "@/components/form/TechInput/TechInput";
-import Loading from "@/utils/loading";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  useLoginMutation,
-  useRegisterMutation,
-} from "@/redux/feature/auth/authApi";
-import { loginValidationSchema } from "@/schema/login.schema";
+import { useRegisterMutation } from "@/redux/feature/auth/authApi";
 import { toast } from "sonner";
-import { useAppDispatch } from "@/redux/hook";
-import { verifyToken } from "@/utils/verifyToken";
-import { setUser } from "@/redux/feature/auth/authSlice";
 import uploadImageToCloudinary from "@/utils/uploadImage";
 import { Button } from "@heroui/button";
 

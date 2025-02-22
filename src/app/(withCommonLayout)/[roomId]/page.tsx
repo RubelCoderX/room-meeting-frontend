@@ -32,30 +32,30 @@ const RoomDetailsPage = ({ params: { roomId } }) => {
   };
 
   return (
-    <div className="flex justify-center items-center py-40 ">
-      <div className="p-6 rounded-lg flex flex-wrap md:flex-nowrap max-w-4xl w-full gap-6">
+    <div className="flex justify-center items-center h-[80vh] px-4">
+      <div className="max-w-7xl w-full mx-auto p-6 rounded-lg flex flex-wrap md:flex-nowrap gap-6">
         {/* Left Side - Image */}
-        <div className="w-full md:w-[50%] border h-72 md:h-[300px]">
+        <div className="w-full md:w-[60%] border h-72 md:h-[400px]">
           <Image
             src={data?.data?.image}
             alt="Conference Room"
-            width={500}
-            height={200}
+            width={700}
+            height={400}
             className="rounded-lg object-cover w-full h-full"
           />
         </div>
 
         {/* Right Side - Details */}
-        <div className="w-full md:w-[50%] p-4 md:p-6">
+        <div className="w-full md:w-[40%] p-4 md:p-6">
           <h2 className="text-xl md:text-2xl font-bold">{data?.data?.name}</h2>
           <p className="text-gray-600 text-sm md:text-base">
             Total Capacity: {data?.data?.capacity} People
           </p>
 
           <h3 className="font-semibold mt-4 text-sm md:text-base">
-            Room Facility :
+            Room Facilities:
           </h3>
-          <div className="flex flex-wrap md:flex-nowrap gap-4 mt-2">
+          <div className="flex flex-wrap gap-4 mt-2">
             {data?.data?.amenities?.map((facility, index) => (
               <FacilityItem
                 key={index}

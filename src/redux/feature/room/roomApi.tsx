@@ -28,19 +28,33 @@ const roomApi = baseApi.injectEndpoints({
       },
     }),
     getAllRoom: builder.query({
-      query: () => {
+      query: ({ searchTerm, capacity }) => {
+        const queryParams = new URLSearchParams();
+        if (searchTerm) queryParams.append("searchTerm", searchTerm);
+        if (capacity) queryParams.append("capacity", capacity);
+
         return {
-          url: "/room",
+          url: `/room?${queryParams.toString()}`,
           method: "GET",
         };
       },
       providesTags: ["room"],
     }),
+
     getRoomById: builder.query({
       query: (roomId) => {
         return {
           url: `/room/get-room/${roomId}`,
           method: "GET",
+        };
+      },
+    }),
+    updateRoom: builder.mutation({
+      query: (room) => {
+        return {
+          url: `/room/update-room/${room.roomId}`,
+          method: "PATCH",
+          body: room,
         };
       },
     }),
@@ -62,4 +76,5 @@ export const {
   useGetAllSlotQuery,
   useGetSlotByIdQuery,
   useDeleteRoomMutation,
+  useUpdateRoomMutation,
 } = roomApi;

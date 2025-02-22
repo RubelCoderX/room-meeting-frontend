@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useGetAllBookingQuery } from "@/redux/feature/booking/bookingApi";
@@ -15,29 +14,16 @@ import {
 import Image from "next/image";
 import { toast } from "sonner";
 
-type IBooking = {
-  id: string;
-  room: {
-    name: string;
-    image: string;
-  };
-  slots: {
-    date: string;
-    startTime: string;
-    endTime: string;
-  };
-};
-
 const GetAllBooking = () => {
   const { data: booking, isLoading } = useGetAllBookingQuery(undefined);
   const [deleteBooking] = useDeleteRoomMutation();
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id) => {
     try {
       await deleteBooking(id).unwrap();
       toast.success("Room deleted successfully!");
     } catch (err) {
-      toast.error("Failed to delete room.");
+      toast.error(err?.error);
     }
   };
 
@@ -54,7 +40,7 @@ const GetAllBooking = () => {
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
-          {booking?.data?.map((book: IBooking) => (
+          {booking?.data?.map((book) => (
             <TableRow key={book.id}>
               <TableCell>
                 <Image

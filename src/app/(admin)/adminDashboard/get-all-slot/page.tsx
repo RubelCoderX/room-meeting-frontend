@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import {
@@ -16,12 +17,23 @@ import {
 import Image from "next/image";
 import { toast } from "sonner";
 
+type Slot = {
+  id: string;
+  room: {
+    name: string;
+    image: string;
+  };
+  date: string;
+  startTime: string;
+  endTime: string;
+};
+
 const GetAllSlot = () => {
   const { data: slot, isLoading } = useGetAllSlotQuery(undefined);
   console.log(slot);
   const [deleteRoom] = useDeleteRoomMutation();
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     try {
       await deleteRoom(id).unwrap();
       toast.success("Room deleted successfully!");
@@ -43,7 +55,7 @@ const GetAllSlot = () => {
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
-          {slot?.data?.map((slot) => (
+          {slot?.data?.map((slot: Slot) => (
             <TableRow key={slot?.id}>
               <TableCell>
                 <Image

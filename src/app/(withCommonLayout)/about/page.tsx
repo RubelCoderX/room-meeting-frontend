@@ -112,7 +112,9 @@ const AboutUs = () => {
             experiences.
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center gap-5">
-            <img
+            <Image
+              width={500}
+              height={500}
               className="rounded-md shadow-lg w-64 mx-auto transition-transform transform hover:scale-105"
               src="https://i.ibb.co/ZKhhTcv/business-people-posing-together-office.jpg"
               alt="Our Team"

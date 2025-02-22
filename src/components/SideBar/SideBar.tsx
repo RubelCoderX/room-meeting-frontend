@@ -164,7 +164,7 @@ const AdminSideBar = () => {
             >
               <div className="pl-4 space-y-2">
                 <Link
-                  href="/adminDashboard/bookings"
+                  href="/adminDashboard/all-booking"
                   className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-100 transition"
                 >
                   All Bookings

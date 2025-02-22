@@ -2,15 +2,17 @@
 
 import { useGetMeQuery } from "@/redux/feature/auth/authApi";
 import { logout } from "@/redux/feature/auth/authSlice";
+import { removeToken } from "@/utils/seetCookie";
 import {
-  Avatar,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const NavberDropDown = () => {
@@ -18,18 +20,28 @@ const NavberDropDown = () => {
   const dispatch = useDispatch();
   const { data, isLoading } = useGetMeQuery(undefined);
   const user = data?.data;
-  console.log("user", user.profileImg);
+  // console.log("user", user);
+
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleNavigation = (path: string) => {
     router.push(path);
   };
 
   const handleLogOut = () => {
+    removeToken();
     dispatch(logout());
     router.push("/login");
   };
 
   if (isLoading) return <div>Loading...</div>;
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <Dropdown>

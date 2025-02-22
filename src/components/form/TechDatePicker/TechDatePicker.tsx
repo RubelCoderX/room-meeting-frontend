@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 import { IInput } from "@/types";
 import { DatePicker } from "@heroui/react";
 import { Controller, useFormContext } from "react-hook-form";

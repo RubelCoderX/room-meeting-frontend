@@ -71,20 +71,20 @@ const TechSelect = ({
   isMulti,
 }: IProps) => {
   const {
-    register,
     setValue,
     getValues,
     formState: { errors },
   } = useFormContext();
 
-  const handleChange = (selected: string[] | string) => {
-    setValue(name, selected); // 🔥 Save multiple selected values properly
+  const handleChange = (selected: Set<string>) => {
+    const values = Array.from(selected); // Convert Set to Array
+    setValue(name, isMulti ? values : values[0]);
   };
 
   return (
     <Select
-      selectedKeys={getValues(name)} // 🔥 Ensure selected values are stored properly
-      onSelectionChange={handleChange} // 🔥 Handle multiple selections
+      selectedKeys={getValues(name)}
+      onSelectionChange={handleChange}
       className="min-w-full sm:min-w-[225px]"
       errorMessage={errors[name] ? (errors[name]?.message as string) : ""}
       isDisabled={disabled}

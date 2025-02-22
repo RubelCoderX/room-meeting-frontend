@@ -13,7 +13,7 @@ const uploadImageToCloudinary = async (
   }
 
   const formData = new FormData();
-  console.log(imageFile[0]);
+  // console.log(imageFile[0]);
 
   formData.append("file", imageFile[0]);
   formData.append("upload_preset", uploadPreset);

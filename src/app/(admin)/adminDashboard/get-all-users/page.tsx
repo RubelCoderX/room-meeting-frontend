@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import {
@@ -16,13 +17,21 @@ import {
 } from "@heroui/react";
 import Image from "next/image";
 import { toast } from "sonner";
+type IUser = {
+  id: string;
+  name: string;
+  role: string;
+  address: string;
+  email: string;
+  profileImg: string;
+};
 
 const GetAllSlot = () => {
   const { data: user, isLoading } = useGetAllUsersQuery(undefined);
 
   const [deleteUser] = useDeleteUserMutation();
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     try {
       await deleteUser(id).unwrap();
       toast.success("Room deleted successfully!");
@@ -44,7 +53,7 @@ const GetAllSlot = () => {
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
-          {user?.data?.map((user) => (
+          {user?.data?.map((user: IUser) => (
             <TableRow key={user?.id}>
               <TableCell>
                 <Image
