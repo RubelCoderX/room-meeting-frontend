@@ -70,9 +70,6 @@ const GetAllSlot = () => {
               <TableCell>{user?.email}</TableCell>
 
               <TableCell>
-                <button className="bg-blue-500 text-white px-3 py-1 rounded mr-2">
-                  Update
-                </button>
                 <button
                   className="bg-red-500 text-white px-3 py-1 rounded"
                   onClick={() => handleDelete(user?.id)}

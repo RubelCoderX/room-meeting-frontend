@@ -1,6 +1,12 @@
 import Booking from "@/components/Booking/Booking";
 
-const Page = ({ params: { roomId } }) => {
+interface PageProps {
+  params: {
+    roomId: string;
+  };
+}
+
+const Page = ({ params: { roomId } }: PageProps) => {
   return (
     <div>
       <Booking id={roomId} />

@@ -27,11 +27,12 @@ const CreateSlot = () => {
   // const navigation = useNavigate();
 
   const roomsOption = rooms?.data?.map((item: Room) => ({
-    key: item.id,
+    // key: item.id,
+    value: item.id,
     label: item.name,
   }));
+
   const handleCreateSlot = async (data: FieldValues) => {
-    console.log(data);
     const toastId = toast.loading("Creating...");
 
     const formattedStartTime = moment(data.startTime, "HH:mm");
@@ -46,23 +47,34 @@ const CreateSlot = () => {
 
     const slotData = {
       ...data,
-      roomId: data?.room,
+      roomId: data.roomId,
       date: moment(data.date).format("YYYY-MM-DD"),
       startTime: formattedStartTime.format("HH:mm"),
       endTime: formattedEndTime.format("HH:mm"),
     };
 
-    console.log("slodata", slotData);
-
     try {
       const res = await creatSlot(slotData);
-      if (res.error) {
-        toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
+
+      // Handle success case
+      if (res?.data?.success) {
+        toast.success(res.data.message || "Slot created successfully", {
+          id: toastId,
+          duration: 2000,
+        });
       } else {
-        toast.success(res.data.message, { id: toastId, duration: 2000 });
+        const errorMessage =
+          (res.error as any)?.data?.message || "An error occurred";
+        toast.error(errorMessage, {
+          id: toastId,
+          duration: 2000,
+        });
       }
     } catch (error: any) {
-      toast.error(error.message, { id: toastId, duration: 2000 });
+      toast.error(error.message || "Something went wrong", {
+        id: toastId,
+        duration: 2000,
+      });
     }
   };
 
@@ -79,7 +91,7 @@ const CreateSlot = () => {
             <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4 mb-4">
               <div className="flex-1 w-full">
                 <TechSelect
-                  name="room"
+                  name="roomId"
                   options={roomsOption}
                   label="Room"
                   radius="none"

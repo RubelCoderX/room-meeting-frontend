@@ -3,7 +3,14 @@ import { Card, CardBody } from "@heroui/card";
 import Image from "next/image";
 import Link from "next/link";
 
-const RoomCard = ({ room }) => {
+interface Room {
+  id: string;
+  image: string;
+  name: string;
+  capacity: number;
+}
+
+const RoomCard = ({ room }: { room: Room }) => {
   return (
     <div>
       <Card className="shadow-lg bg-[#D9D9D9]">

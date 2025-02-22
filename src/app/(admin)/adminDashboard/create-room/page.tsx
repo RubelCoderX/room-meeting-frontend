@@ -31,7 +31,6 @@ const CreateRoom: React.FC = () => {
     { value: string; label: string }[]
   >([]);
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
     if (!e.target.files || e.target.files.length === 0) {
       toast.error("Please select an image.");
       return;
@@ -55,7 +54,6 @@ const CreateRoom: React.FC = () => {
 
   //Form Submission Handler
   const handleCreateRoom = async (data: FieldValues) => {
-    console.log("data", data);
     const formData = {
       ...data,
       capacity: Number(data.capacity),

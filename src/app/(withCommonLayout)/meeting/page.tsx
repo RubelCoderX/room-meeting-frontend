@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { Input, Select, SelectItem, Button } from "@heroui/react";
@@ -11,7 +12,7 @@ export type Room = {
   id: string;
   name: string;
   capacity: number;
-  image?: string;
+  image: string;
   amenities: string[];
 };
 const Room = () => {

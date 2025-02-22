@@ -31,7 +31,6 @@ const Login = () => {
       toast.error(res?.message, { duration: 2000 });
     } else {
       toast.success(res?.message, { duration: 2000 });
-      router.push("/");
     }
     const token = res.data?.accessToken;
     const decoded = verifyToken(token);
@@ -44,6 +43,9 @@ const Login = () => {
         user: decoded,
       })
     );
+
+    router.push("/");
+    window.location.reload();
   };
 
   return (

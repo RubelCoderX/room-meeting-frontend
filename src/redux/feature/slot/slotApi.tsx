@@ -27,6 +27,15 @@ const slotApi = baseApi.injectEndpoints({
         };
       },
     }),
+    deleteSlot: builder.mutation({
+      query: (slotId) => {
+        return {
+          url: `/slot/${slotId}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["slot"],
+    }),
   }),
 });
 
@@ -34,4 +43,5 @@ export const {
   useCreateSlotMutation,
   useGetAllSlotQuery,
   useGetSlotByIdQuery,
+  useDeleteSlotMutation,
 } = slotApi;

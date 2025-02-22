@@ -1,5 +1,6 @@
 "use client";
 
+import { baseApi } from "@/redux/api/baseApi";
 import { useGetMeQuery } from "@/redux/feature/auth/authApi";
 import { logout } from "@/redux/feature/auth/authSlice";
 import { removeToken } from "@/utils/seetCookie";
@@ -18,7 +19,7 @@ import { useDispatch } from "react-redux";
 const NavberDropDown = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { data, isLoading } = useGetMeQuery(undefined);
+  const { data, isLoading, refetch } = useGetMeQuery(undefined);
   const user = data?.data;
   // console.log("user", user);
 
@@ -26,15 +27,18 @@ const NavberDropDown = () => {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    refetch();
+  }, [refetch]);
 
   const handleNavigation = (path: string) => {
     router.push(path);
   };
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     removeToken();
     dispatch(logout());
+    // await refetch();
+    dispatch(baseApi.util.resetApiState());
     router.push("/login");
   };
 

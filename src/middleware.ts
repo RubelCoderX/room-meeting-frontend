@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "./utils/currentUser";
-import { verifyToken } from "./utils/verifyToken";
+
 
 const Authroutes = ["/login", "/register"];
 type Role = keyof typeof roleBasedRoutes;

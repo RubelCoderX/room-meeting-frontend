@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useGetMeQuery } from "@/redux/feature/auth/authApi";
@@ -12,8 +13,13 @@ const facilityIcons: Record<string, JSX.Element> = {
   Projector: <Tv />,
   Whiteboard: <Computer />,
 };
+interface PageProps {
+  params: {
+    roomId: string;
+  };
+}
 
-const RoomDetailsPage = ({ params: { roomId } }) => {
+const RoomDetailsPage = ({ params: { roomId } }: PageProps) => {
   const { data, isFetching } = useGetRoomByIdQuery(roomId);
   const { data: user } = useGetMeQuery(undefined);
   const userProfile = user?.data;
@@ -56,7 +62,7 @@ const RoomDetailsPage = ({ params: { roomId } }) => {
             Room Facilities:
           </h3>
           <div className="flex flex-wrap gap-4 mt-2">
-            {data?.data?.amenities?.map((facility, index) => (
+            {data?.data?.amenities?.map((facility: any, index: any) => (
               <FacilityItem
                 key={index}
                 icon={facilityIcons[facility] || <Armchair />}

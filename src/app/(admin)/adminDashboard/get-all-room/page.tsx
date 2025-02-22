@@ -63,7 +63,6 @@ const GetAllRoom = () => {
   const { data: rooms, isLoading } = useGetAllRoomQuery([]);
   const [deleteRoom] = useDeleteRoomMutation();
   const [update] = useUpdateRoomMutation();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [profileImage, setProfileImage] = useState("");
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
@@ -123,14 +122,16 @@ const GetAllRoom = () => {
   const handleUpdateRoom = async (data: FormData) => {
     try {
       const updatedData = {
-        ...data,
-        roomId: selectedRoom?.id || "",
+        name: data.name,
         image: profileImage || selectedRoom?.image || "",
         capacity: Number(data.capacity),
         amenities: selectedAmenities.map((item) => item.value),
       };
       console.log("updatedData", updatedData);
-      const res = await update(updatedData).unwrap();
+      const res = await update({
+        roomId: selectedRoom?.id,
+        ...updatedData,
+      }).unwrap();
       if (res.error) {
         toast.error(res.error.data.message);
         return;

@@ -8,7 +8,6 @@ interface UserPayload extends JwtPayload {
 }
 export async function getCurrentUser() {
   const token = cookies().get("token")?.value;
-  console.log("token", token);
 
   if (!token) return null;
 

@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import {
-  useDeleteRoomMutation,
-  useGetAllSlotQuery,
-} from "@/redux/feature/room/roomApi";
+import { useGetAllSlotQuery } from "@/redux/feature/room/roomApi";
+import { useDeleteSlotMutation } from "@/redux/feature/slot/slotApi";
 import Loading from "@/utils/loading";
 import {
   Table,
@@ -30,8 +28,8 @@ type Slot = {
 
 const GetAllSlot = () => {
   const { data: slot, isLoading } = useGetAllSlotQuery(undefined);
-  console.log(slot);
-  const [deleteRoom] = useDeleteRoomMutation();
+
+  const [deleteRoom] = useDeleteSlotMutation();
 
   const handleDelete = async (id: string) => {
     try {
