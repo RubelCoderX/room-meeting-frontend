@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-
 import { Input, Select, SelectItem, Button } from "@heroui/react";
 import { useCallback, useState } from "react";
-
 import RoomCard from "@/components/RoomCard/RoomCard";
 import Loading from "@/utils/loading";
 import { useGetAllRoomQuery } from "@/redux/feature/room/roomApi";
@@ -32,7 +30,7 @@ const Room = () => {
     debouncedSearch(e.target.value);
   };
 
-  // Clear filters (reset state)
+  // Clear filters
   const clearFilters = () => {
     setCapacity("");
     setSearchTerm("");
@@ -41,7 +39,7 @@ const Room = () => {
 
   if (isFetching) return <Loading />;
 
-  // Capacity options (1-50 people)
+  // Capacity options
   const capacityOptions = Array.from({ length: 50 }, (_, i) => ({
     key: (i + 1).toString(),
     label: `${i + 1} People`,
@@ -49,7 +47,7 @@ const Room = () => {
 
   return (
     <div className="flex flex-col md:flex-row max-w-5xl mx-auto p-4 md:p-6 min-h-[80vh] gap-6">
-      {/* Left Sidebar (Filters) */}
+      {/* Left Sidebar*/}
       <div className="w-full md:w-[296px] bg-[#DFD3D1] p-4 rounded-lg">
         <h2 className="text-lg font-semibold mb-4">Filter by Location:</h2>
 

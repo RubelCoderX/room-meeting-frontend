@@ -28,10 +28,18 @@ const BookingApi = baseApi.injectEndpoints({
       },
       providesTags: ["booking"],
     }),
+    //    getMyBooking: builder.query({
+    //   query: ({ page = 1, limit = 10 }) => {
+    //     return {
+    //       url: `/booking/my-bookings?page=${page}&limit=${limit}`,
+    //       method: "GET",
+    //     };
+    //   },
+    // }),
     getMyBooking: builder.query({
-      query: () => {
+      query: ({ page = 1, limit = 1 }) => {
         return {
-          url: "/booking/my-bookings",
+          url: `/booking/my-bookings?page=${page}&limit=${limit}`,
           method: "GET",
         };
       },
